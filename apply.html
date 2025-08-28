@@ -5,14 +5,15 @@
   <title>LaunchPad Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- EmailJS + QRCode -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
   <style>
     body {
       font-family: "Segoe UI", sans-serif;
-      background: #000;
-      color: #fff;
+      background: #fff;
+      color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,17 +22,19 @@
     }
 
     h2 {
-      color: #ff9900;
-      margin-bottom: 20px;
+      color: #ff6a00;
+      margin-bottom: 25px;
+      text-align: center;
     }
 
     form {
-      background: #1a1a1a;
-      padding: 25px 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 153, 0, 0.3);
-      max-width: 400px;
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      max-width: 420px;
       width: 100%;
+      border: 1px solid #ff6a00;
     }
 
     input {
@@ -39,42 +42,50 @@
       padding: 12px;
       margin: 10px 0;
       border-radius: 6px;
-      border: 1px solid #ff9900;
+      border: 1px solid #ccc;
       font-size: 15px;
-      background-color: #000;
-      color: #fff;
+      background-color: #fff;
+      color: #333;
+      transition: border 0.2s ease-in-out;
+    }
+
+    input:focus {
+      border-color: #ff6a00;
+      outline: none;
+      box-shadow: 0 0 6px rgba(255, 106, 0, 0.3);
     }
 
     input::placeholder {
-      color: #ccc;
+      color: #aaa;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #ff9900;
+      background-color: #ff6a00;
       color: white;
       border: none;
       font-size: 16px;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
+      transition: background 0.2s ease-in-out;
     }
 
     button:hover {
-      background-color: #e68a00;
+      background-color: #e65c00;
     }
 
     #message {
       margin-top: 20px;
       font-weight: 500;
-      color: #ff9900;
+      color: #ff6a00;
       text-align: center;
     }
 
     #qrcanvas {
       margin-top: 20px;
-      border: 2px solid #ff9900;
+      border: 2px solid #ff6a00;
       padding: 10px;
       background: #fff;
       border-radius: 10px;
@@ -84,7 +95,7 @@
 </head>
 <body>
 
-  <h2>LaunchPad Application</h2>
+  <h2>🚀 LaunchPad Application</h2>
 
   <form id="regForm">
     <input type="text" id="name" placeholder="Full Name" required />
