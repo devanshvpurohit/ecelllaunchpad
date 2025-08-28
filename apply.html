@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>LaunchPad Application</title>
+  <title>SIH IARE Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- EmailJS + QRCode -->
@@ -12,7 +12,7 @@
   <style>
     body {
       font-family: "Segoe UI", sans-serif;
-      background: #fff;
+      background: #f0f0f0;
       color: #333;
       display: flex;
       justify-content: center;
@@ -22,19 +22,19 @@
     }
 
     h2 {
-      color: #ff6a00;
+      color: #0073e6;
       margin-bottom: 25px;
       text-align: center;
     }
 
     form {
-      background: #f9f9f9;
+      background: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
       max-width: 420px;
       width: 100%;
-      border: 1px solid #ff6a00;
+      border: 1px solid #0073e6;
     }
 
     input, textarea {
@@ -50,15 +50,15 @@
     }
 
     input:focus, textarea:focus {
-      border-color: #ff6a00;
+      border-color: #0073e6;
       outline: none;
-      box-shadow: 0 0 6px rgba(255, 106, 0, 0.3);
+      box-shadow: 0 0 6px rgba(0, 115, 230, 0.3);
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background-color: #ff6a00;
+      background-color: #0073e6;
       color: white;
       border: none;
       font-size: 16px;
@@ -69,19 +69,19 @@
     }
 
     button:hover {
-      background-color: #e65c00;
+      background-color: #005bb5;
     }
 
     #message {
       margin-top: 20px;
       font-weight: 500;
-      color: #ff6a00;
+      color: #0073e6;
       text-align: center;
     }
 
     #qrcanvas {
       margin-top: 20px;
-      border: 2px solid #ff6a00;
+      border: 2px solid #0073e6;
       padding: 10px;
       background: #fff;
       border-radius: 10px;
@@ -91,29 +91,29 @@
 </head>
 <body>
 
-  <h2>🚀 LaunchPad Application</h2>
+  <h2>🛠️ SIH IARE Application</h2>
 
-  <form id="regForm">
+  <form id="sihForm">
     <input type="text" id="name" placeholder="Full Name" required />
-    <textarea id="notes" placeholder="Your Idea / Notes" rows="3" required></textarea>
+    <textarea id="idea" placeholder="Your Idea / Notes" rows="3" required></textarea>
     <input type="email" id="email" placeholder="Email Address" required />
-    <button type="submit">Apply to LaunchPad</button>
+    <button type="submit">Submit Application</button>
   </form>
 
   <canvas id="qrcanvas"></canvas>
   <div id="message"></div>
 
   <script>
-    emailjs.init("oQesVLGv8IcrnyBZI"); // 🔑 Replace with your EmailJS public key
+    emailjs.init("oQesVLGv8IcrnyBZI"); // EmailJS public key
 
-    const BASEROW_TOKEN = "pm5DBUZjIr3G0ZAoeb393GPOo0574nPl"; // 🔑 Replace with your real token
+    const BASEROW_TOKEN = "pm5DBUZjIr3G0ZAoeb393GPOo0574nPl";
     const TABLE_API_URL = "https://api.baserow.io/api/database/rows/table/657003/?user_field_names=true";
 
-    document.getElementById("regForm").addEventListener("submit", async function (e) {
+    document.getElementById("sihForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const notes = document.getElementById("notes").value.trim();
+      const idea = document.getElementById("idea").value.trim();
       const email = document.getElementById("email").value.trim();
       const canvas = document.getElementById("qrcanvas");
       const msg = document.getElementById("message");
@@ -122,30 +122,29 @@
       canvas.style.display = "none";
 
       try {
-        // 1️⃣ Fetch existing rows
+        // Check for duplicates in Baserow
         const res = await fetch(TABLE_API_URL, {
           headers: { Authorization: `Token ${BASEROW_TOKEN}` }
         });
         const data = await res.json();
 
-        // 2️⃣ Check duplicates
         const duplicate = data.results.find(row =>
           row.Name?.toLowerCase() === name.toLowerCase() ||
-          row.Notes?.toLowerCase() === notes.toLowerCase()
+          row.Notes?.toLowerCase() === idea.toLowerCase()
         );
 
         if (duplicate) {
-          msg.textContent = "⚠️ You have already applied to LaunchPad.";
+          msg.textContent = "⚠️ You have already applied for SIH IARE.";
           return;
         }
 
-        // 3️⃣ Generate QR code
-        const qrData = `LaunchPad Application\nName: ${name}\nNotes: ${notes}\nEmail: ${email}`;
+        // Generate QR code
+        const qrData = `SIH IARE Application\nName: ${name}\nIdea: ${idea}\nEmail: ${email}`;
         await QRCode.toCanvas(canvas, qrData);
         const qrBase64 = canvas.toDataURL("image/png");
         canvas.style.display = "block";
 
-        // 4️⃣ Save new application to Baserow
+        // Save to Baserow
         const saveRes = await fetch(TABLE_API_URL, {
           method: "POST",
           headers: {
@@ -154,25 +153,25 @@
           },
           body: JSON.stringify({
             Name: name,
-            Notes: `${notes}\nEmail: ${email}`,
+            Notes: `${idea}\nEmail: ${email}`,
             Active: true
           })
         });
 
-        if (!saveRes.ok) throw new Error("Failed to save to Baserow");
+        if (!saveRes.ok) throw new Error("Failed to save application.");
 
-        // 5️⃣ Send confirmation email with QR
-        await emailjs.send("service_3krqsck", "template_5flwr9g", {
+        // Send confirmation email
+        await emailjs.send("service_0wmy7pl", "template_bnz346e", {
           name: name,
           email: email,
           qr_code: qrBase64
         });
 
-        msg.textContent = "✅ Application successful! Check your email for the QR code.";
-        document.getElementById("regForm").reset();
+        msg.textContent = "✅ Application submitted! Check your email for the QR code.";
+        document.getElementById("sihForm").reset();
 
       } catch (error) {
-        console.error("Error:", error);
+        console.error(error);
         msg.textContent = "❌ Something went wrong. Please try again later.";
       }
     });
