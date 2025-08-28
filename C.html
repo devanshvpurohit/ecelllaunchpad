@@ -1,155 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>What You’ll Get | LaunchPad Program</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f8f8;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    nav {
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ff7f00;
-      text-decoration: none;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: #444;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      color: #ff7f00;
-    }
-
-    header {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #222;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      color: #666;
-    }
-
-    .main-content {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .main-content h2 {
-      color: #ff7f00;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-
-    .main-content ul {
-      padding-left: 1.2rem;
-    }
-
-    .main-content ul li {
-      margin-bottom: 0.75rem;
-      padding-left: 1rem;
-      position: relative;
-    }
-
-    .main-content ul li::before {
-      content: "✔️";
-      position: absolute;
-      left: 0;
-      color: #ff7f00;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      margin-top: 4rem;
-      background-color: #222;
-      color: white;
-      font-size: 0.9rem;
-    }
-
-    .email {
-      color: #ffcc00;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracks | SIH IARE Hackathon</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <nav>
-    <a class="logo" href="index.html">LaunchPad</a>
+    <a href="index.html" class="logo">SIH IARE</a>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="A.html">Our Mission</a></li>
-      <li><a href="B.html">Who Can Join?</a></li>
-      <li><a href="C.html">What You’ll Get</a></li>
-      <li><a href="D.html">Our Approach</a></li>
-      <li><a href="E.html">Why Join?</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="tracks.html">Tracks</a></li>
       <li><a href="apply.html">Apply</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
   <header>
-    <h1>What You’ll Get</h1>
-    <p>The Benefits of Joining the LaunchPad Program</p>
+    <h1>Hackathon Tracks</h1>
+    <p>Choose your challenge!</p>
   </header>
 
-  <div class="main-content">
-    <h2>📚 What You’ll Get</h2>
-    <ul>
-      <li><strong>Workshops & Bootcamps:</strong> Learn about business models, design thinking, pitching, funding, and more.</li>
-      <li><strong>Mentorship:</strong> One-on-one guidance from startup experts, faculty, and alumni to take your startup to the next level.</li>
-      <li><strong>Pitch Days:</strong> Opportunity to present your startup to investors, VCs, and incubation partners.</li>
-      <li><strong>Startup Toolkit:</strong> Access to essential tools, software credits, and templates for building and scaling your venture.</li>
-      <li><strong>Community:</strong> Connect with like-minded individuals who share your passion for innovation and entrepreneurship.</li>
-    </ul>
+  <div class="container">
+    <div class="card">
+      <h2>🚀 AI & Machine Learning</h2>
+      <p>Build innovative solutions using AI, ML, and data-driven technologies.</p>
+    </div>
+
+    <div class="card">
+      <h2>🌍 Sustainability</h2>
+      <p>Create projects that address environmental challenges and promote sustainable development.</p>
+    </div>
+
+    <div class="card">
+      <h2>📱 App & Web Development</h2>
+      <p>Design user-friendly mobile or web applications with real-world impact.</p>
+    </div>
+
+    <div class="card">
+      <h2>🤖 Robotics & IoT</h2>
+      <p>Innovate with hardware, IoT, and automation to build futuristic solutions.</p>
+    </div>
   </div>
 
   <footer>
-    Contact us: <span class="email">ecell@iare.ac.in</span>
+    <p>© 2025 SIH IARE Hackathon | Contact: <span class="email">sih@iare.ac.in</span></p>
   </footer>
-
 </body>
 </html>
