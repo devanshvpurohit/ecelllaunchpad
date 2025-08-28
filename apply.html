@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title></title> Application</title>
+  <title>LaunchPad Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- EmailJS + QRCode -->
@@ -91,13 +91,13 @@
 </head>
 <body>
 
-  <h2>🚀  Application</h2>
+  <h2>🚀 LaunchPad Application</h2>
 
   <form id="regForm">
     <input type="text" id="name" placeholder="Full Name" required />
     <textarea id="notes" placeholder="Your Idea / Notes" rows="3" required></textarea>
     <input type="email" id="email" placeholder="Email Address" required />
-    <button type="submit">Apply to SiH</button>
+    <button type="submit">Apply to LaunchPad</button>
   </form>
 
   <canvas id="qrcanvas"></canvas>
@@ -106,14 +106,14 @@
   <script>
     emailjs.init("oQesVLGv8IcrnyBZI"); // 🔑 Replace with your EmailJS public key
 
-    const BASEROW_TOKEN = "pm5DBUZjIr3G0ZAoeb393GPOo0574nPl"; // 🔑 Replace with your real token
+    const BASEROW_TOKEN = "YOUR_DATABASE_TOKEN"; // 🔑 Replace with your real token
     const TABLE_API_URL = "https://api.baserow.io/api/database/rows/table/657003/?user_field_names=true";
 
     document.getElementById("regForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const notes = document.getElementById("PS iD AND ").value.trim();
+      const notes = document.getElementById("notes").value.trim();
       const email = document.getElementById("email").value.trim();
       const canvas = document.getElementById("qrcanvas");
       const msg = document.getElementById("message");
