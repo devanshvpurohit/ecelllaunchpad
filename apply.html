@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>LaunchPad Application</title>
+  <title></title> Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- EmailJS + QRCode -->
@@ -37,7 +37,7 @@
       border: 1px solid #ff6a00;
     }
 
-    input {
+    input, textarea {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
@@ -49,14 +49,10 @@
       transition: border 0.2s ease-in-out;
     }
 
-    input:focus {
+    input:focus, textarea:focus {
       border-color: #ff6a00;
       outline: none;
       box-shadow: 0 0 6px rgba(255, 106, 0, 0.3);
-    }
-
-    input::placeholder {
-      color: #aaa;
     }
 
     button {
@@ -95,29 +91,29 @@
 </head>
 <body>
 
-  <h2>🚀 LaunchPad Application</h2>
+  <h2>🚀  Application</h2>
 
   <form id="regForm">
     <input type="text" id="name" placeholder="Full Name" required />
-    <input type="text" id="roll" placeholder="College Roll Number" required />
+    <textarea id="notes" placeholder="Your Idea / Notes" rows="3" required></textarea>
     <input type="email" id="email" placeholder="Email Address" required />
-    <button type="submit">Apply to LaunchPad</button>
+    <button type="submit">Apply to SiH</button>
   </form>
 
   <canvas id="qrcanvas"></canvas>
   <div id="message"></div>
 
   <script>
-    emailjs.init("oQesVLGv8IcrnyBZI");
+    emailjs.init("oQesVLGv8IcrnyBZI"); // 🔑 Replace with your EmailJS public key
 
-    const BASEROW_TOKEN = "beSz1ZWotwcbWpHFC5qyKlABSVpsVxcQ";
-    const TABLE_API_URL = "https://api.baserow.io/api/database/rows/table/498245/?user_field_names=true";
+    const BASEROW_TOKEN = "pm5DBUZjIr3G0ZAoeb393GPOo0574nPl"; // 🔑 Replace with your real token
+    const TABLE_API_URL = "https://api.baserow.io/api/database/rows/table/657003/?user_field_names=true";
 
     document.getElementById("regForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const roll = document.getElementById("roll").value.trim();
+      const notes = document.getElementById("PS iD AND ").value.trim();
       const email = document.getElementById("email").value.trim();
       const canvas = document.getElementById("qrcanvas");
       const msg = document.getElementById("message");
@@ -126,16 +122,16 @@
       canvas.style.display = "none";
 
       try {
+        // 1️⃣ Fetch existing rows
         const res = await fetch(TABLE_API_URL, {
-          headers: {
-            Authorization: `Token ${BASEROW_TOKEN}`
-          }
+          headers: { Authorization: `Token ${BASEROW_TOKEN}` }
         });
         const data = await res.json();
 
+        // 2️⃣ Check duplicates
         const duplicate = data.results.find(row =>
-          row.Roll?.toLowerCase() === roll.toLowerCase() ||
-          row.Email?.toLowerCase() === email.toLowerCase()
+          row.Name?.toLowerCase() === name.toLowerCase() ||
+          row.Notes?.toLowerCase() === notes.toLowerCase()
         );
 
         if (duplicate) {
@@ -143,11 +139,13 @@
           return;
         }
 
-        const qrData = `LaunchPad Application\nName: ${name}\nRoll: ${roll}\nEmail: ${email}`;
+        // 3️⃣ Generate QR code
+        const qrData = `LaunchPad Application\nName: ${name}\nNotes: ${notes}\nEmail: ${email}`;
         await QRCode.toCanvas(canvas, qrData);
         const qrBase64 = canvas.toDataURL("image/png");
         canvas.style.display = "block";
 
+        // 4️⃣ Save new application to Baserow
         const saveRes = await fetch(TABLE_API_URL, {
           method: "POST",
           headers: {
@@ -156,14 +154,14 @@
           },
           body: JSON.stringify({
             Name: name,
-            Roll: roll,
-            Email: email,
-            timestamp: new Date().toISOString()
+            Notes: `${notes}\nEmail: ${email}`,
+            Active: true
           })
         });
 
         if (!saveRes.ok) throw new Error("Failed to save to Baserow");
 
+        // 5️⃣ Send confirmation email with QR
         await emailjs.send("service_3krqsck", "template_5flwr9g", {
           name: name,
           email: email,
